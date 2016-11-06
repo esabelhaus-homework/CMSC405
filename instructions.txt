@@ -1,0 +1,30 @@
+Using Visual C++ and your OpenGL configured environment,
+write an application that displays a “unique” graphical scene that you designed and coded for this course. 
+
+What you put in your graphical scene is up to you. There are some specific requirements, however.
+
+All submissions must include the following:
+
+X 1. Use a 800 x 600 display window
+X 2. Include the Window title of “Your name – Homework 2” on your display.
+3. Include lines, rectangles, triangles and other polygon shapes of your choice.
+4. Include multiple text elements within the graphic.
+X 5. Include a unique 24x24 or larger bitmap image that you designed and generated. The bitmap image may be displayed multiple times in the scene as needed.
+
+Notes:
+
+1. Work to be creative and make this your own.
+2. Consider generating a scene with animals, fish, houses, city skylines, furniture, flowers or other objects you want to create based on the primitives.
+3. Use “Graph” paper to sketch your design to make it easier to set your coordinates.
+4. Your unique bitmap image may take some time to design, generate and test. You should plan accordingly.
+
+Deliverables
+
+You should submit a well-organized Word document that includes:
+
+1. Screen captures of the output of running your Visual C++ code
+2. A description of the project that discusses how you incorporated each of the required items listed above and why you selected to do this application
+3. A discussion of the limitations of the application and possible future enhancements
+4. A user's guide that explains how to compile and run the application
+
+You should submit the C++ source code files for your application in a .zip file.
