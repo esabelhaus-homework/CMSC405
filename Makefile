@@ -9,6 +9,6 @@ endif
 all: clean build
 
 build:
-	g++ GuiApp.cpp -o GuiApp ${BUILD_PARAMS}
+	g++ Scene.cpp -o Scene ${BUILD_PARAMS}
 clean:
-	rm -f GuiApp
+	rm -f Scene

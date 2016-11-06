@@ -47,44 +47,28 @@ void displayFcn(void)
 	// Set graphic objects color to Red or change for your choice
 	glColor3f(1.0, 0.0, 0.0);
 	//Generate 24x24 bitmap unique image
-	GLubyte bitShape2[72] = {
-    0xff, 0xff, 0xff,
-    0x03, 0x00, 0xc0,
-    0xa5, 0x5a, 0xa5,
-    0x89, 0x5a, 0x91,
-    0x91, 0x5a, 0x89,
-    0x25, 0x5a, 0xa4,
-    0x45, 0x5a, 0xa2,
-    0x95, 0x00, 0xa9,
-    0x15, 0xff, 0xa8,
-    0x55, 0xa5, 0xaa,
-    0x55, 0xe7, 0xaa,
-    0x55, 0x99, 0xaa,
-    0x55, 0xdb, 0xaa,
-    0x55, 0xc3, 0xaa,
-    0x55, 0xbd, 0xa8,
-    0x15, 0xff, 0xa8,
-    0x95, 0x00, 0xa1,
-    0x45, 0x5a, 0xa2,
-    0x25, 0x5a, 0xa4,
-    0x91, 0x5a, 0x89,
-    0x89, 0x5a, 0x91,
-    0xa5, 0x5a, 0xa5,
-    0x03, 0x00, 0xc0,
-    0xff, 0xff, 0xff
+	// unique image is of a turtle on a pyramid
+	GLubyte bitShape[72] = {
+    0xff, 0xff, 0xff, 0x03, 0x00, 0xc0, 0xa5, 0x5a, 0xa5, 0x89, 0x5a, 0x91,
+    0x91, 0x5a, 0x89, 0x25, 0x5a, 0xa4, 0x45, 0x5a, 0xa2, 0x95, 0x00, 0xa9,
+    0x15, 0xff, 0xa8, 0x55, 0xa5, 0xaa, 0x55, 0xe7, 0xaa, 0x55, 0x99, 0xaa,
+    0x55, 0xdb, 0xaa, 0x55, 0xc3, 0xaa, 0x55, 0xbd, 0xa8, 0x15, 0xff, 0xa8,
+    0x95, 0x00, 0xa1, 0x45, 0x5a, 0xa2, 0x25, 0x5a, 0xa4, 0x91, 0x5a, 0x89,
+    0x89, 0x5a, 0x91, 0xa5, 0x5a, 0xa5, 0x03, 0x00, 0xc0, 0xff, 0xff, 0xff
   };
 
 	// Needed for reading from memory. 1 indicates byte alignment
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	// Center the bitmap image
+
+	// set position of raster within the coordinate plane
 	glRasterPos2i(-200, 200);
 	// Display the image of size 24x24
 	// x and y offsets of 24, 12.
-	glBitmap(24.0, 24.0, 0.0, 0.0, 24.0, 12.0, bitShape2);
+	glBitmap(24.0, 24.0, 0.0, 0.0, 24.0, 12.0, bitShape);
 
   // Create black rectangles
 
-  // Define to Arrays to hold vertex points
+  // arrays to hold vertex points of rectangles
   int blackRectA1[] = { -400, -300 };
   int blackRectA2[] = { -300, 100 };
   int blackRectB1[] = { -270, -300 };
@@ -94,36 +78,43 @@ void displayFcn(void)
   int blackRectD1[] = { 160, -280 };
   int blackRectD2[] = { 250, 280 };
 
-  // Change color to black
+  // change color to black
   glColor3f(0.0, 0.0, 0.0);
 
-  // Draw rectangles
+  // draw rectangles
   glRectiv(blackRectA1, blackRectA2);
   glRectiv(blackRectB1, blackRectB2);
   glRectiv(blackRectC1, blackRectC2);
   glRectiv(blackRectD1, blackRectD2);
 
+
+
+	//set color to steel blue
+	glColor3f(0.275, 0.510, 0.706);
+
+  // draw circle
 	glPushMatrix();
-	//Set Drawing Color - Will Remain this color until otherwise specified
-	glColor3f(0.2, 0.3, 0.5);  //Some type of blue
-	//Draw Circle
 	glBegin(GL_POLYGON);
 	  for(double i = 0; i < 2 * M_PI; i += M_PI / 12)
 			glVertex3f(-270 + cos(i) * radius, -130 + sin(i) * radius, 0.0);
 	glEnd();
-	//Draw Circle
   glPopMatrix();
 
 
+
+  // add text to scene
   std::string s = "Modern Art Designed by Eric Sabelhaus";
 
+  // set color to red
   glColor3d(1.0, 0.0, 0.0);
-  glRasterPos2d(-240, -165);
+	// set position of raster within the coordinate plane
+  glRasterPos2i(-240, -165);
   for (std::string::iterator i = s.begin(); i != s.end(); ++i) {
     char c = *i;
     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, c);
   }
 
+  // create instance variables for hexagon
   GLuint regHex;
   GLdouble theta;
   GLint x, y, k;
@@ -145,36 +136,9 @@ void displayFcn(void)
   // Must call this to display the Hex graphic
   glCallList(regHex);
 
-  glRasterPos2d(-300, -74);
-
-  GLubyte bitShape1[72] = {
-    0xff, 0xff, 0xff,
-    0x03, 0x00, 0xc0,
-    0xa5, 0x5a, 0xa5,
-    0x89, 0x5a, 0x91,
-    0x91, 0x5a, 0x89,
-    0x25, 0x5a, 0xa4,
-    0x45, 0x5a, 0xa2,
-    0x95, 0x00, 0xa9,
-    0x15, 0xff, 0xa8,
-    0x55, 0xa5, 0xaa,
-    0x55, 0xe7, 0xaa,
-    0x55, 0x99, 0xaa,
-    0x55, 0xdb, 0xaa,
-    0x55, 0xc3, 0xaa,
-    0x55, 0xbd, 0xa8,
-    0x15, 0xff, 0xa8,
-    0x95, 0x00, 0xa1,
-    0x45, 0x5a, 0xa2,
-    0x25, 0x5a, 0xa4,
-    0x91, 0x5a, 0x89,
-    0x89, 0x5a, 0x91,
-    0xa5, 0x5a, 0xa5,
-    0x03, 0x00, 0xc0,
-    0xff, 0xff, 0xff
-  };
-
-  glBitmap(24.0, 24.0, 0.0, 0.0, 24.0, 12.0, bitShape1);
+	// set position of raster within the coordinate plane
+  glRasterPos2i(-300, -74);
+  glBitmap(24.0, 24.0, 0.0, 0.0, 24.0, 12.0, bitShape);
 
   // Create blue rectangle
 
@@ -184,6 +148,30 @@ void displayFcn(void)
   int blueRectA2[] = { -180, 160 };
 
   glRectiv(blueRectA1, blueRectA2);
+
+
+	//Draw fish
+	glPushMatrix();
+	glColor3f(0.0, 1.0, 0.0);
+	glBegin(GL_POLYGON);
+		for(double i = 0; i < 2 * M_PI; i += M_PI / 12)
+			glVertex3f(-70 + cos(i) * radius, -260 + sin(i) * radius, 0.0);
+	glEnd();
+	glPopMatrix();
+
+	glBegin(GL_POLYGON);
+  	glColor3f(0.0, 1.0, 0.0);
+		glVertex2i(-70, -230);
+    glVertex2i(-70, -290);
+    glVertex2i(-200, -260);
+  glEnd();
+
+	glBegin(GL_POLYGON);
+  	glColor3f(0.0, 1.0, 0.0);
+		glVertex2i(-230, -230);
+		glVertex2i(-230, -290);
+		glVertex2i(-180, -260);
+	glEnd();
 
 	// Execute OpenGL functions
 	glFlush();
