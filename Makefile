@@ -9,6 +9,6 @@ endif
 all: clean build
 
 build:
-	g++ Scene.cpp -o Scene ${BUILD_PARAMS}
+	g++ SceneWithMods.cpp -o Scene ${BUILD_PARAMS}
 clean:
 	rm -f Scene
