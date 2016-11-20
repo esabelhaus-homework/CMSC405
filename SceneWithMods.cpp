@@ -25,9 +25,10 @@ using namespace std;
 static int radius = 30;
 
 static float triangleTranslate = 27.9f;
-static float hexy = .5f;
+static float hexed = 1.0f;
 static float age = 27.9f;
-static int rando = 100;
+static float rectS = 1.0f;
+static float rectT = 1.0f;
 
 
 // Global Variable Section
@@ -145,7 +146,7 @@ void displayFcn(void)
 
 	// add text to scene
 	std::string s = "Modern Art Designed by Eric Sabelhaus";
-	// set color to red
+	// set colrectTor to red
 	glColor3d(1.0, 0.0, 0.0);
 	// set position of raster within the coordinate plane
 	glRasterPos2i(-240, -165);
@@ -213,17 +214,19 @@ void displayFcn(void)
 	  glVertex2i(-180, -260);
   glEnd();
 
+	// At least one object must allow a rotation
   // Draw objects before and after rotations
 	glColor3f(1.0, 0.0, 0.0);
   glRecti(0, 0, 75, 150);
 
 	glPushMatrix();
-	glColor3f(0.275, 0.510, 0.706);
+	glColor3f(1.000, 0.078, 0.576);
 	glRotatef(age, 0.0f, 0.0f, 1.0f);
 	glRecti(0, 0, 75, 150);
 	glPopMatrix();
 
 
+	// At least one must allow translation.
   // translating triangle
 	glPushMatrix();
 	// Create the struct values for holding x,y values
@@ -235,10 +238,9 @@ void displayFcn(void)
 	myverts[2].x = -230;
 	myverts[2].y = -140;
 
-	glTranslatef(-120.0, -120.0, 1.0);
-
+	glTranslatef(triangleTranslate, triangleTranslate, 0.0);
 	glBegin(GL_TRIANGLES);
-		glColor3f(0.0, 1.0, 0.0);
+		glColor3f(1.000, 0.078, 0.576);
 		for (k = 0; k < 3; k++) {
 			glVertex2i(myverts[k].x, myverts[k].y);
 		}
@@ -247,9 +249,10 @@ void displayFcn(void)
   glPopMatrix();
 
 
+	// At least one object must allow scaling.
   // hexagon scaling
   glPushMatrix();
-	glColor3f(0.0, 1.0, 0.0);
+	glColor3f(1.000, 0.078, 0.576);
 	GLuint regHexScaling;
 	// Sets up a hexagon starting at 300,-200 with a size of "60"
 	regHexScaling = glGenLists(1);  //  Get an identifier for the display list.
@@ -266,49 +269,84 @@ void displayFcn(void)
 	glEndList();
 
   // scale the hexagon between -1.7 and 1.7, default is .5
-	glScalef(hexy, hexy, 1.0f);
+	glScalef(hexed, hexed, 1.0f);
 	// Must call this to display the Hex graphic
   glCallList(regHexScaling);
   glPopMatrix();
 
-	// perform transformations on at least four of the objects
 
-	// At least one object must allow a rotation - Done
-
-	// At least one object must allow scaling -
-
-	// At least one must allow translation. -
 
 	// At least one of the objects must allow a combination of transformations. -
+  // Scale and Translate a rectangle
+  glPushMatrix();
+	glColor3f(1.000, 0.078, 0.576);
+	int resizeAndTranslateA1[] = { 350, 150 };
+	int resizeAndTranslateA2[] = { 360, 180 };
+
+	glScalef(rectS, rectS, 1.0f);
+	glTranslatef(rectT, rectT, 0.0f);
+	glRectiv(resizeAndTranslateA1, resizeAndTranslateA2);
+  glPopMatrix();
+
 
 	// You must constraint the user on the bounds of the transformations. set hard limits - do this last
-
-	// Execute OpenGL functions
 	glFlush();
 }
 
 void whatSizesToUse() {
-  // accept the amount of translation for the bitmap from 1
+  // accept the amount of translation for the pink triangle
 	cout << "where do we translate the triangle to?" << endl;
-	cout << "Enter a float: ";
+	cout << "Enter a float between -129.9 and 400.0: ";
 	cin >> triangleTranslate;
+	cout << "Translating to " << triangleTranslate << endl << endl;
 
-  // accept an integer for scaling up the hexagon
-	cout << "how big is the hexagon" << endl;
+	while (triangleTranslate < -130.0 || triangleTranslate > 401.0) {
+		cout << cout << "ERROR: Please enter a float between -129.9 and 400.0: ";
+		cin >> triangleTranslate;
+		cout << "Translating to " << triangleTranslate << endl << endl;
+	} // check for erroneous entries
+
+  // accept a float for the scale of the pink hexagon
+	cout << "how big is the hexagon?" << endl;
 	cout << "Enter an float between -1.7 and 1.7: ";
-	cin >> hexy;
+	cin >> hexed;
+	cout << "Scaling to " << hexed << endl << endl;
 
-  // accept a float for how much to rotate the rectangle
+  while (hexed < -1.8 || hexed > 1.8) {
+		cout << "ERROR: Please enter an float between -1.7 and 1.7: ";
+		cin >> hexed;
+		cout << "Scaling to " << hexed << endl << endl;
+	} // check for erroneous entries
+
+  // accept a float for the scale and translation of the pink rectangle
+	cout << "how big is the rectangle?" << endl;
+	cout << "Enter an float between -1.0 and 1.0: ";
+	cin >> rectS;
+	cout << "Scaling to " << rectS << endl << endl;
+
+	while (rectS < -1.1 || rectS > 1.1 ) {
+		cout << "ERROR: please enter a float between -1.1 and 1.1: ";
+		cin >> rectS;
+		cout << "Scaling to " << rectS << endl << endl;
+	} // check for erroneous entries
+
+	cout << "where do we translate the rectangle to?" << endl;
+	cout << "Enter an float between -40 and 40: ";
+	cin >> rectT;
+	cout << "Translating to " << rectT << endl << endl;
+
+  while (rectT < -41 || rectT > 41) {
+		cout << "ERROR: please enter a float between -40 and 40: ";
+		cin >> rectS;
+		cout << "Scaling to " << rectS << endl << endl;
+	}
+
+  // accept a float for how much to rotate the pink and rectangle
 	cout << "how old are you?" << endl;
 	cout << "Enter a float: ";
 	cin >> age;
-	cout << "Rotating " << age << " degrees" << endl;
-
-  // accept an amont for coordinates
-	cout << "pick a number" << endl;
-	cout << "Enter an integer: ";
-  cin >> rando;
-}
+	cout << "Rotating to " << age << " degrees" << endl;
+} // no limit needed on rotation, it will end up at some degree of 360 regardless
 
 // Windows redraw function
 void winReshapeFcn(GLint newWidth, GLint newHeight)
@@ -331,7 +369,7 @@ int main(int argc, char** argv) {
 	glutCreateWindow("Eric Sabelhaus - Homework 4");
 
   // determine input values
-	//whatSizesToUse();
+	whatSizesToUse();
 
 	// Initialize
 	init();
